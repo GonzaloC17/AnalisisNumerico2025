@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es" class="transition duration-300">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Numérica</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    };
+    if (localStorage.getItem('modoOscuro') === 'true') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition duration-300">
+
+  <header class="bg-blue-800 dark:bg-blue-900 text-white py-5 text-center text-3xl font-bold shadow">
+    Calculadora de Métodos Analisis Numérico
+  </header>
+
+  <main class="flex flex-col items-center justify-center px-4 py-12">
+    <h1 class="text-2xl font-semibold">Seleccioná un tipo de método</h1>
+
+    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">
+      <h2 class="text-2xl font-semibold text-red-500">Unidad 1</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
+        <a href="metodosCerrados/indexC.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">Métodos Cerrados</h2>
+          <p class="text-sm">Bisección y Regla Falsa. Requieren intervalo [xi, xd] donde la función cambie de
+            signo.</p>
+        </a>
+
+        <a href="metodosAbiertos/indexA.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">Métodos Abiertos</h2>
+          <p class="text-sm">Newton-Raphson y Secante. Requieren una o dos aproximaciones iniciales (x₀, x₁).
+          </p>
+        </a>
+      </div>
+    </div>
+    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">Unidad 2
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
+        <a href="metodosCerrados/indexC.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">#</h2>
+          <p class="text-sm">#</p>
+        </a>
+
+        <a href="metodosAbiertos/indexA.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">#</h2>
+          <p class="text-sm">#
+          </p>
+        </a>
+      </div>
+    </div>
+    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">Unidad 3
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
+        <a href="metodosCerrados/indexC.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">#</h2>
+          <p class="text-sm">#</p>
+        </a>
+
+        <a href="metodosAbiertos/indexA.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">#</h2>
+          <p class="text-sm">#
+          </p>
+        </a>
+      </div>
+    </div>
+    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">Unidad 4
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
+        <a href="metodosCerrados/indexC.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">#</h2>
+          <p class="text-sm">#</p>
+        </a>
+
+        <a href="metodosAbiertos/indexA.html"
+          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
+          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">#</h2>
+          <p class="text-sm">#
+          </p>
+        </a>
+      </div>
+    </div>
+
+    <!-- <button onclick="toggleModoOscuro()"
+      class="mt-10 px-6 py-2 bg-gray-800 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:scale-105 transition duration-300 shadow">
+      🌙 Cambiar Modo
+    </button> -->
+    <button onclick="toggleModoOscuro()"
+      class="fixed top-4 right-4 bg-gray-800 dark:bg-gray-100 text-white dark:text-black px-4 py-2 rounded shadow z-50 ">
+      🌙 Cambiar Modo
+    </button>
+  </main>
+
+  <script>
+    function toggleModoOscuro() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('modoOscuro', html.classList.contains('dark'));
+    }
+
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        if (localStorage.getItem('modoOscuro') === 'true') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>

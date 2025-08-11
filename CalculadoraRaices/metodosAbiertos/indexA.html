@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Métodos Abiertos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@13.0.0/lib/browser/math.min.js"></script>
+  <script defer src="scriptA.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    };
+    if (localStorage.getItem('modoOscuro') === 'true') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition duration-300">
+
+  <header class="bg-green-800 dark:bg-green-900 text-white py-4 text-center text-2xl font-bold shadow-md">
+    Métodos Abiertos
+  </header>
+
+  <main class="flex flex-col xl:flex-row items-start justify-between max-w-7xl mx-auto px-6 py-10 gap-8">
+    
+    <section class="w-full xl:w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h1 class="text-2xl font-semibold mb-6">Calculadora de Newton-Raphson y Secante</h1>
+
+      <form id="formulario" class="space-y-4">
+        <div>
+          <label class="block font-semibold">Función</label>
+          <input type="text" id="funcion" placeholder="Ej: x^3 - x - 2" required
+            class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700">
+        </div>
+        <div>
+          <label class="block font-semibold">x₀</label>
+          <input type="number" id="x0" step="any" required
+            class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700">
+        </div>
+        <div>
+          <label class="block font-semibold">x₁ (solo para secante)</label>
+          <input type="number" id="x1" step="any"
+            class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold">Tolerancia</label>
+            <input type="number" id="tolerancia" step="any" required
+              class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700">
+          </div>
+          <div>
+            <label class="block font-semibold">Iteraciones</label>
+            <input type="number" id="iteraciones" required
+              class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700">
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold">Método</label>
+          <select id="metodo"
+            class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700">
+            <option value="newton">Newton-Raphson</option>
+            <option value="secante">Secante</option>
+          </select>
+        </div>
+        <button type="submit"
+          class="bg-green-600 hover:bg-green-700 active:scale-95 transition-transform text-white px-6 py-2 rounded shadow">
+          Calcular
+        </button>
+      </form>
+
+      <h2 class="text-xl font-bold mt-8">📋 Resultados</h2>
+      <pre id="salida" class="bg-gray-100 dark:bg-gray-700 p-4 mt-2 rounded shadow-inner text-sm overflow-auto"></pre>
+    </section>
+
+    <section class="w-full xl:w-1/2">
+      <h2 class="text-xl font-bold mb-2">📈 Gráfico</h2>
+      <iframe id="ggb-element" src="https://www.geogebra.org/calculator" allowfullscreen frameborder="0"
+        class="w-full h-[600px] rounded-lg border dark:border-gray-700 shadow-lg"></iframe>
+    </section>
+  </main>
+
+  <button onclick="toggleModoOscuro()"
+    class="fixed top-4 right-4 bg-gray-800 dark:bg-gray-100 text-white dark:text-black px-4 py-2 rounded shadow z-50">
+    🌙 Cambiar Modo
+  </button>
+
+  <script>
+    function toggleModoOscuro() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('modoOscuro', html.classList.contains('dark'));
+    }
+
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        if (localStorage.getItem('modoOscuro') === 'true') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+
+
