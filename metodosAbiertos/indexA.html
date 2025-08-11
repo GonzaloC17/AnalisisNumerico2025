@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Métodos Abiertos</title>
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@13.0.0/lib/browser/math.min.js"></script>
+  <script defer src="script_abiertos.js"></script>
+  <style>
+    iframe { width: 100%; height: 500px; border: 1px solid #ccc; }
+    body { font-family: Arial; max-width: 800px; margin: auto; }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Métodos Abiertos</h1>
+
+  <form id="formulario">
+    <label>Función: <input type="text" id="funcion" placeholder="Ej: x^3 - x - 2" required></label><br>
+    <label>x₀: <input type="number" id="x0" step="any" required></label><br>
+    <label>x₁ (solo para secante): <input type="number" id="x1" step="any"></label><br>
+    <label>Tolerancia: <input type="number" id="tolerancia" step="any" required></label><br>
+    <label>Iteraciones: <input type="number" id="iteraciones" required></label><br>
+    <label>Método:
+      <select id="metodo">
+        <option value="newton">Newton-Raphson</option>
+        <option value="secante">Secante</option>
+      </select>
+    </label><br>
+    <button type="submit">Calcular</button>
+  </form>
+
+  <h2>Resultados</h2>
+  <pre id="salida"></pre>
+
+  <h2>Visualización en GeoGebra</h2>
+  <iframe id="ggb-element"
+    src="https://www.geogebra.org/calculator"
+    allowfullscreen
+    frameborder="0"
+  ></iframe>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Método de Bisección</title>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <h1>Calculadora de Bisección</h1>
+
+  <form id="formulario">
+    <label>Función: <input type="text" id="funcion" placeholder="Ej: Math.pow(x,3) - x - 2" required></label><br>
+    <label>xi: <input type="number" id="xi" step="any" required></label><br>
+    <label>xd: <input type="number" id="xd" step="any" required></label><br>
+    <label>Tolerancia: <input type="number" id="tolerancia" step="any" required></label><br>
+    <label>Iteraciones: <input type="number" id="iteraciones" required></label><br>
+    <label>Método:
+      <select id="metodo">
+        <option value="biseccion">Bisección</option>
+        <option value="falsa">Falsa Posición</option>
+      </select>
+    </label><br>
+    <button type="submit">Calcular</button>
+  </form>
+
+  <h2>Resultados</h2>
+  <pre id="salida"></pre>
+
+  <h2>Gráfico</h2>
+  <iframe id="geogebra" width="800" height="600" frameborder="0" allowfullscreen></iframe>
+</body>
+</html>

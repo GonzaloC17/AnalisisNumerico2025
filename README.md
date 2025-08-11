@@ -1,1 +1,0 @@
-# AnalisisNumerico2025
