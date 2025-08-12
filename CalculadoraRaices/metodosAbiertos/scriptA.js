@@ -80,4 +80,58 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
   }
 
   salida.textContent = texto;
+  actualizarGeoGebra(funcionStr);
 });
+
+function evaluarFuncion(funcionStr, x) {
+  try {
+    return eval(funcionStr.replace(/x/g, `(${x})`));
+  } catch {
+    alert("⚠️ Error evaluando la función. Revisá la sintaxis.");
+    throw new Error("Error en la función.");
+  }
+}
+
+function convertirFuncionAGeoGebra(funcionJS) {
+  return funcionJS
+    .replace(/Math\.pow\(([^,]+),\s*([^)]+)\)/g, '($1)^($2)')
+    .replace(/Math\.sin\(/g, 'sin(')
+    .replace(/Math\.cos\(/g, 'cos(')
+    .replace(/Math\.tan\(/g, 'tan(')
+    .replace(/Math\.log\(/g, 'log(')
+    .replace(/Math\.exp\(/g, 'exp(')
+    .replace(/Math\.abs\(/g, 'abs(');
+}
+
+
+// GeoGebra API embedding
+function actualizarGeoGebra(funcionStr) {
+    const funcionGG = convertirFuncionAGeoGebra(funcionStr);
+  const applet = `
+    <html>
+      <head>
+        <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+      </head>
+      <body>
+        <div id="ggb-element"></div>
+        <script>
+          const ggbApp = new GGBApplet({
+            "appName": "graphing",
+            "width": 800,
+            "height": 600,
+            "showToolBar": false,
+            "showAlgebraInput": false,
+            "showMenuBar": false,
+            "appletOnLoad": function(api) {
+              api.evalCommand("f(x) = ${funcionGG}");
+            }
+          }, true);
+          window.addEventListener("load", () => ggbApp.inject('ggb-element'));
+        </script>
+      </body>
+    </html>
+  `;
+  const blob = new Blob([applet], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  document.getElementById("geogebra").src = url;
+}
