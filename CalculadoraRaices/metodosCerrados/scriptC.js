@@ -62,12 +62,28 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
 });
 
 
+// function evaluarFuncion(funcionStr, x) {
+//   try {
+//     return eval(funcionStr.replace(/x/g, `(${x})`));
+//   } catch {
+//     alert("⚠️ Error evaluando la función. Revisá la sintaxis.");
+//     throw new Error("Error en la función.");
+//   }
+// }
+
 function evaluarFuncion(funcionStr, x) {
   try {
-    return eval(funcionStr.replace(/x/g, `(${x})`));
-  } catch {
-    alert("⚠️ Error evaluando la función. Revisá la sintaxis.");
-    throw new Error("Error en la función.");
+    // Creamos una función con el parámetro x y con Math en el scope
+    // "with (Math)" permite usar sin(), cos(), exp(), etc. sin poner Math.
+    const fn = new Function('x', `with (Math) { return ${funcionStr}; }`);
+    const val = fn(x);
+    if (typeof val !== 'number' || !isFinite(val)) {
+      throw new Error('La evaluación no devolvió un número finito.');
+    }
+    return val;
+  } catch (err) {
+    alert("⚠️ Error evaluando la función. Revisá la sintaxis. Ejemplos válidos: 'Math.exp(x)-15', 'exp(x)-15', 'Math.pow(x,5)+0.25*x*x-1'.\nDetalle: " + err.message);
+    throw err;
   }
 }
 
