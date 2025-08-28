@@ -17,8 +17,30 @@
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition duration-300">
 
-  <header class="bg-blue-800 dark:bg-blue-900 text-white py-5 text-center text-3xl font-bold shadow">
-    Calculadora de Métodos Analisis Numérico
+  <header class="bg-gradient-to-r from-blue-700 to-blue-500 dark:from-blue-800 dark:to-blue-700 text-white py-6 shadow-lg">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="text-center md:text-left mb-4 md:mb-0">
+          <h1 class="text-3xl font-bold mb-2 flex items-center gap-3">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+            </svg>
+            Calculadora Numérica
+          </h1>
+          <p class="text-blue-100 text-sm">Métodos de Análisis Numérico - TP1</p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button onclick="toggleModoOscuro()" 
+            class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2">
+            <svg id="modo-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+            </svg>
+            <span class="hidden sm:inline">Cambiar Modo</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </header>
 
   <main class="flex flex-col items-center justify-center px-4 py-12">
@@ -26,87 +48,174 @@
 
     <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">
       <h2 class="text-2xl font-semibold text-red-500">Unidad 1</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 w-full max-w-4xl">
         <a href="metodosCerrados/indexC.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">Métodos Cerrados</h2>
-          <p class="text-sm">Bisección y Regla Falsa. Requieren intervalo [xi, xd] donde la función cambie de
-            signo.</p>
+          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-4">
+                          <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Métodos Cerrados</h2>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">Bisección y Regla Falsa. Requieren intervalo [xi, xd] donde la función cambie de signo.</p>
+            <div class="flex items-center text-blue-500 dark:text-blue-400 font-medium">
+              <span>Explorar métodos</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
         </a>
 
         <a href="metodosAbiertos/indexA.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">Métodos Abiertos</h2>
-          <p class="text-sm">Newton-Raphson y Secante. Requieren una o dos aproximaciones iniciales (x₀, x₁).
-          </p>
+          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-green-100 dark:bg-green-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-4">
+                          <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900 rounded-lg flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">Métodos Abiertos</h2>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">Newton-Raphson y Secante. Requieren una o dos aproximaciones iniciales (x₀, x₁).</p>
+            <div class="flex items-center text-emerald-500 dark:text-emerald-400 font-medium">
+              <span>Explorar métodos</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
         </a>
       </div>
     </div>
-    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">Unidad 2
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
-        <a href="metodosCerrados/indexC.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">#</h2>
-          <p class="text-sm">#</p>
-        </a>
-
-        <a href="metodosAbiertos/indexA.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">#</h2>
-          <p class="text-sm">#
-          </p>
-        </a>
+    
+    <!-- Sección de información adicional -->
+    <div class="mt-16 max-w-4xl mx-auto">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
+                  <h2 class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200 flex items-center justify-center gap-3">
+            <svg class="w-6 h-6 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Información del Proyecto
+          </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4 text-blue-500 dark:text-blue-400 flex items-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Objetivo
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+              Desarrollar una herramienta educativa que permita encontrar raíces de ecuaciones f(x)=0 
+              utilizando métodos numéricos tanto cerrados como abiertos, con visualización gráfica 
+              y resultados detallados.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-4 text-emerald-500 dark:text-emerald-400 flex items-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              Características
+            </h3>
+            <ul class="text-gray-600 dark:text-gray-300 text-sm space-y-2">
+              <li>• Interfaz moderna y responsive</li>
+              <li>• Visualización gráfica con GeoGebra</li>
+              <li>• Modo oscuro/claro</li>
+              <li>• Validación de entrada robusta</li>
+              <li>• Resultados detallados paso a paso</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">Unidad 3
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
-        <a href="metodosCerrados/indexC.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">#</h2>
-          <p class="text-sm">#</p>
-        </a>
-
-        <a href="metodosAbiertos/indexA.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">#</h2>
-          <p class="text-sm">#
-          </p>
-        </a>
-      </div>
-    </div>
-    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">Unidad 4
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl">
-        <a href="metodosCerrados/indexC.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-blue-700 dark:text-blue-400">#</h2>
-          <p class="text-sm">#</p>
-        </a>
-
-        <a href="metodosAbiertos/indexA.html"
-          class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 hover:scale-[1.02] transition duration-300 cursor-pointer border border-gray-200 dark:border-gray-700">
-          <h2 class="text-xl font-bold mb-2 text-green-700 dark:text-green-400">#</h2>
-          <p class="text-sm">#
-          </p>
-        </a>
-      </div>
-    </div>
-
-    <!-- <button onclick="toggleModoOscuro()"
-      class="mt-10 px-6 py-2 bg-gray-800 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:scale-105 transition duration-300 shadow">
-      🌙 Cambiar Modo
-    </button> -->
-    <button onclick="toggleModoOscuro()"
-      class="fixed top-4 right-4 bg-gray-800 dark:bg-gray-100 text-white dark:text-black px-4 py-2 rounded shadow z-50 ">
-      🌙 Cambiar Modo
-    </button>
   </main>
+  
+  <!-- Footer -->
+  <footer class="bg-gray-800 dark:bg-gray-900 text-white py-8 mt-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+                      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+            </svg>
+            Calculadora Numérica
+          </h3>
+          <p class="text-gray-300 text-sm">
+            Herramienta educativa para el análisis numérico. Implementa métodos cerrados y abiertos para encontrar raíces de ecuaciones.
+          </p>
+        </div>
+        <div>
+                      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            </svg>
+            Métodos Implementados
+          </h3>
+          <ul class="text-gray-300 text-sm space-y-2">
+            <li>• Método de Bisección</li>
+            <li>• Método de Regla Falsa</li>
+            <li>• Método de Newton-Raphson</li>
+            <li>• Método de Secante</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+            </svg>
+            Tecnologías
+          </h3>
+          <ul class="text-gray-300 text-sm space-y-2">
+            <li>• HTML5 & CSS3</li>
+            <li>• JavaScript ES6+</li>
+            <li>• Tailwind CSS</li>
+            <li>• GeoGebra API</li>
+            <li>• Math.js</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+        <p class="text-gray-400 text-sm">
+          © 2025 Análisis Numérico - TP1. Desarrollado con ❤️ para la educación matemática.
+        </p>
+      </div>
+    </div>
+  </footer>
 
   <script>
     function toggleModoOscuro() {
       const html = document.documentElement;
+      const modoIcon = document.getElementById('modo-icon');
       html.classList.toggle('dark');
       localStorage.setItem('modoOscuro', html.classList.contains('dark'));
+      
+      // Cambiar icono
+      if (html.classList.contains('dark')) {
+        modoIcon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>';
+      } else {
+        modoIcon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
+      }
     }
+
+    // Inicializar icono al cargar
+    window.addEventListener('load', function() {
+      const modoIcon = document.getElementById('modo-icon');
+      if (localStorage.getItem('modoOscuro') === 'true') {
+        modoIcon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>';
+      } else {
+        modoIcon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
+      }
+    });
 
     window.addEventListener('pageshow', function (event) {
       if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {

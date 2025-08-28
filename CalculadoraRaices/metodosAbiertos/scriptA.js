@@ -1,3 +1,119 @@
+let debounceTimer;
+function debounce(func, delay) {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(func, delay);
+}
+
+document.getElementById("funcion").addEventListener("input", function() {
+  const funcionStr = this.value.trim();
+  const loadingIndicator = document.getElementById("loading-indicator");
+  
+  loadingIndicator.classList.remove("hidden");
+  
+  debounce(() => {
+    if (funcionStr && ggbApp) {
+      try {
+        ggbApp.evalCommand(`f(x) = ${funcionStr}`);
+        console.log('Función actualizada en tiempo real:', funcionStr);
+      } catch (error) {
+        console.log('Error al actualizar función en tiempo real:', error);
+      }
+    } else if (ggbApp) {
+      try {
+        ggbApp.evalCommand(`f(x) = undefined`);
+      } catch (error) {
+        console.log('Error al limpiar gráfico:', error);
+      }
+    }
+    loadingIndicator.classList.add("hidden");
+  }, 500);
+});
+
+document.getElementById("clear-function").addEventListener("click", function() {
+  const funcionInput = document.getElementById("funcion");
+  funcionInput.value = "";
+  funcionInput.focus();
+  
+  if (ggbApp) {
+    try {
+      ggbApp.evalCommand(`f(x) = undefined`);
+      console.log('Gráfico limpiado');
+    } catch (error) {
+      console.log('Error al limpiar gráfico:', error);
+    }
+  }
+});
+
+document.getElementById("capture-results").addEventListener("click", function() {
+  const captureButton = document.getElementById("capture-results");
+  const originalText = captureButton.innerHTML;
+  
+  captureButton.innerHTML = '<span>⏳</span><span>Procesando...</span>';
+  captureButton.disabled = true;
+  
+  const tituloResultados = document.querySelector('.flex.justify-between.items-center.mt-8');
+  const contenidoResultados = document.getElementById("salida");
+  
+  const resultadosContainer = document.createElement('div');
+  resultadosContainer.style.cssText = `
+    background: ${document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff'};
+    color: ${document.documentElement.classList.contains('dark') ? '#ffffff' : '#000000'};
+    padding: 20px;
+    border-radius: 8px;
+    margin: 0;
+    font-family: inherit;
+    width: 600px;
+    max-width: 600px;
+  `;
+  
+  const tituloClon = tituloResultados.cloneNode(true);
+  const contenidoClon = contenidoResultados.cloneNode(true);
+  
+  const botonCaptura = tituloClon.querySelector('#capture-results');
+  if (botonCaptura) {
+    botonCaptura.remove();
+  }
+  
+  resultadosContainer.appendChild(tituloClon);
+  resultadosContainer.appendChild(contenidoClon);
+  
+  document.body.appendChild(resultadosContainer);
+  
+  captureButton.style.visibility = 'hidden';
+  
+  html2canvas(resultadosContainer, {
+    backgroundColor: document.documentElement.classList.contains('dark') ? '#1f2937' : '#ffffff',
+    scale: 2,
+    useCORS: true,
+    allowTaint: true,
+    logging: false
+  }).then(canvas => {
+    document.body.removeChild(resultadosContainer);
+    
+    captureButton.innerHTML = originalText;
+    captureButton.disabled = false;
+    captureButton.style.visibility = 'visible';
+    
+    const link = document.createElement('a');
+    const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+    link.download = `resultados-metodos-abiertos-${timestamp}.png`;
+    link.href = canvas.toDataURL('image/png', 0.95);
+    link.click();
+    
+    console.log('Captura de resultados guardada');
+  }).catch(error => {
+    if (document.body.contains(resultadosContainer)) {
+      document.body.removeChild(resultadosContainer);
+    }
+    
+    captureButton.innerHTML = originalText;
+    captureButton.disabled = false;
+    captureButton.style.visibility = 'visible';
+    console.error('Error al capturar:', error);
+    alert('Error al capturar los resultados. Intenta nuevamente.');
+  });
+});
+
 document.getElementById("formulario").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -18,18 +134,20 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
       const derivadaStr = math.derivative(funcionStr, 'x').toString();
       df = math.compile(derivadaStr);
     }
-  } catch (error) {
-    salida.textContent = "⚠️ Error en la función ingresada.";
+     } catch (error) {
+     salida.textContent = "Error en la función ingresada.";
+     return;
+   }
+
+  if (!ggbApp) {
+    console.log("GeoGebra aún no está listo");
     return;
   }
+  
+  ggbApp.evalCommand(`f(x) = ${funcionStr}`);
 
-  const ggb = document.getElementById("ggb-element").contentWindow;
-  const ggbCmd = (cmd) => ggb.postMessage({ type: "evalCommand", commandString: cmd }, "*");
-
-  ggbCmd("DeleteAll[]");
-  ggbCmd(`f(x) = ${funcionStr}`);
-
-  let texto = `📊 Método: ${metodo === "newton" ? "Newton-Raphson" : "Secante"}\n📊 Iteraciones:\n`;
+     let texto = `<div class="mb-3"><span class="font-bold text-emerald-600 dark:text-emerald-400">Método:</span> ${metodo === "newton" ? "Newton-Raphson" : "Secante"}</div>`;
+   texto += `<div class="mb-2"><span class="font-bold text-emerald-600 dark:text-emerald-400">Iteraciones:</span></div>`;
 
   let xi = x0;
   let xiPrev = x1;
@@ -41,55 +159,86 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
 
     if (metodo === "newton") {
       const dfxi = df.evaluate({ x: xi });
-      if (dfxi === 0) {
-        salida.textContent = "⚠️ Derivada cero. No se puede continuar.";
-        return;
-      }
+             if (dfxi === 0) {
+         salida.textContent = "Derivada cero. No se puede continuar.";
+         return;
+       }
       xiNext = xi - fxi / dfxi;
 
       // Tangente en xi
       const pendiente = dfxi;
       const ordenada = fxi;
       const tangenteStr = `${pendiente}*(x - ${xi}) + ${ordenada}`;
-      ggbCmd(`Tang${i}(x) = ${tangenteStr}`);
+      ggbApp.evalCommand(`Tang${i}(x) = ${tangenteStr}`);
     } else if (metodo === "secante") {
       const fxiPrev = f.evaluate({ x: xiPrev });
       const denominator = fxi - fxiPrev;
-      if (denominator === 0) {
-        salida.textContent = "⚠️ División por cero.";
-        return;
-      }
+             if (denominator === 0) {
+         salida.textContent = "División por cero.";
+         return;
+       }
       xiNext = xi - fxi * (xi - xiPrev) / denominator;
 
       // Línea secante
       const m = (fxi - fxiPrev) / (xi - xiPrev);
       const b = fxi - m * xi;
-      ggbCmd(`Secante${i}(x) = ${m}*x + ${b}`);
+      ggbApp.evalCommand(`Secante${i}(x) = ${m}*x + ${b}`);
       xiPrev = xi;
     }
 
     error = Math.abs((xiNext - xi) / xiNext);
-    texto += `Iteración ${i}: x = ${xiNext.toFixed(6)}, error = ${error.toFixed(6)}\n`;
+         texto += `<div class="mb-2 text-sm"><span class="font-semibold text-gray-700 dark:text-gray-300">Iteración ${i}:</span> x = <span class="font-mono">${xiNext.toFixed(6)}</span>, error = <span class="font-mono">${error.toFixed(6)}</span></div>`;
 
-    if (Math.abs(f.evaluate({ x: xiNext })) < tolerancia || error < tolerancia) {
-      texto += `\n🎯 Raíz encontrada: ${xiNext}`;
-      break;
-    }
+         if (Math.abs(f.evaluate({ x: xiNext })) < tolerancia || error < tolerancia) {
+       texto += `\n\nRAIZ_ENCONTRADA:${xiNext.toFixed(6)}`;
+       break;
+     }
 
     xi = xiNext;
   }
 
-  salida.textContent = texto;
+       const textoFormateado = texto.replace(
+    /RAIZ_ENCONTRADA:([^\\n]+)/g,
+    '<div class="mt-4 p-3 bg-emerald-100 dark:bg-emerald-900 border-l-4 border-emerald-500 rounded-r-lg"><span class="font-bold text-emerald-800 dark:text-emerald-200"><svg class="w-5 h-5 inline-block mr-2 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> RAÍZ ENCONTRADA:</span> <span class="font-bold text-lg text-emerald-900 dark:text-emerald-100">$1</span></div>'
+  );
+  
+  salida.innerHTML = textoFormateado;
   actualizarGeoGebra(funcionStr);
+});
+
+let ggbApp;
+
+// Inicializar GeoGebra al cargar la página
+window.addEventListener('load', function() {
+  const ggbApplet = new GGBApplet({
+    "appName": "graphing",
+    "width": 800,
+    "height": 600,
+    "showToolBar": false,
+    "showAlgebraInput": false,
+    "showMenuBar": false,
+    "showToolBarHelp": false,
+    "showResetIcon": false,
+    "enableLabelDrags": false,
+    "enableShiftDragZoom": true,
+    "enableRightClick": false,
+    "showZoomButtons": false,
+    "appletOnLoad": function(api) {
+      ggbApp = api;
+      console.log('GeoGebra API cargada exitosamente');
+    }
+  }, true);
+  
+  ggbApplet.inject('geogebra-container');
 });
 
 function evaluarFuncion(funcionStr, x) {
   try {
     return eval(funcionStr.replace(/x/g, `(${x})`));
-  } catch {
-    alert("⚠️ Error evaluando la función. Revisá la sintaxis.");
-    throw new Error("Error en la función.");
-  }
+     } catch {
+     alert("Error evaluando la función. Revisá la sintaxis.");
+     throw new Error("Error en la función.");
+   }
 }
 
 function convertirFuncionAGeoGebra(funcionJS) {
@@ -98,40 +247,27 @@ function convertirFuncionAGeoGebra(funcionJS) {
     .replace(/Math\.sin\(/g, 'sin(')
     .replace(/Math\.cos\(/g, 'cos(')
     .replace(/Math\.tan\(/g, 'tan(')
-    .replace(/Math\.log\(/g, 'log(')
-    .replace(/Math\.exp\(/g, 'exp(')
-    .replace(/Math\.abs\(/g, 'abs(');
+    .replace(/Math\.log\(/g, 'ln(')
+    .replace(/Math\.exp\(/g, 'e^(')
+    .replace(/Math\.abs\(/g, 'abs(')
+    .replace(/Math\.sqrt\(/g, 'sqrt(')
+    .replace(/Math\.PI/g, 'π')
+    .replace(/Math\.E/g, 'e');
 }
 
 
-// GeoGebra API embedding
 function actualizarGeoGebra(funcionStr) {
-    const funcionGG = convertirFuncionAGeoGebra(funcionStr);
-  const applet = `
-    <html>
-      <head>
-        <script src="https://www.geogebra.org/apps/deployggb.js"></script>
-      </head>
-      <body>
-        <div id="ggb-element"></div>
-        <script>
-          const ggbApp = new GGBApplet({
-            "appName": "graphing",
-            "width": 800,
-            "height": 600,
-            "showToolBar": false,
-            "showAlgebraInput": false,
-            "showMenuBar": false,
-            "appletOnLoad": function(api) {
-              api.evalCommand("f(x) = ${funcionGG}");
-            }
-          }, true);
-          window.addEventListener("load", () => ggbApp.inject('ggb-element'));
-        </script>
-      </body>
-    </html>
-  `;
-  const blob = new Blob([applet], { type: "text/html" });
-  const url = URL.createObjectURL(blob);
-  document.getElementById("geogebra").src = url;
+  if (!ggbApp) {
+    console.log("GeoGebra aún no está listo, reintentando...");
+    setTimeout(() => actualizarGeoGebra(funcionStr), 500);
+    return;
+  }
+  
+  const funcionGG = convertirFuncionAGeoGebra(funcionStr);
+  
+  try {
+    ggbApp.evalCommand(`f(x) = ${funcionGG}`);
+  } catch (error) {
+    console.log("Error al actualizar GeoGebra:", error);
+  }
 }
