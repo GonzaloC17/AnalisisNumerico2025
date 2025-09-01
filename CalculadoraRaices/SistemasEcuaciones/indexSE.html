@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sistemas de Ecuaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Acá enlazás tu css global -->
+    <link rel="stylesheet" href="config.css" />
+    <script defer src="scriptSE.js"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+        if (localStorage.getItem('modoOscuro') === 'true') {
+          document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition duration-300">
+
+<header class="bg-gradient-to-r from-blue-700 to-blue-500 dark:from-blue-800 dark:to-blue-700 text-white py-6 shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Sistemas de Ecuaciones</h1>
+        <a href="../index.html" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all">← Volver</a>
+    </div>
+</header>
+
+<main class="max-w-4xl mx-auto px-6 py-10">
+    <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold mb-6">Resolver con Gauss-Jordan (Von-Mises)</h2>
+
+        <div class="flex items-center gap-4 mb-6">
+            <label class="font-bold">Dimensión:</label>
+            <input type="number" id="dimension" min="2" max="10" class="w-20 px-2 py-1 border rounded dark:bg-gray-700 dark:border-gray-600">
+            <button onclick="generarMatriz()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Generar</button>
+            <button onclick="resolverSistema()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded">Resolver</button>
+        </div>
+
+        <div id="matriz-container" class="overflow-auto mb-6"></div>
+
+
+
+        <h3 class="text-lg font-bold mt-6 mb-2">Resultado:</h3>
+        <pre id="resultado" class="bg-gray-100 dark:bg-gray-700 p-4 rounded overflow-auto"></pre>
+    </section>
+</main>
+
+</body>
+</html>
