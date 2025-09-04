@@ -13,8 +13,9 @@ document.getElementById("funcion").addEventListener("input", function() {
   debounce(() => {
     if (funcionStr && ggbApp) {
       try {
-        ggbApp.evalCommand(`f(x) = ${funcionStr}`);
-        console.log('Función actualizada en tiempo real:', funcionStr);
+        const funcionNormalizada = normalizarFuncion(funcionStr);
+        ggbApp.evalCommand(`f(x) = ${funcionNormalizada}`);
+        console.log('Función actualizada en tiempo real:', funcionNormalizada);
       } catch (error) {
         console.log('Error al actualizar función en tiempo real:', error);
       }
@@ -117,13 +118,16 @@ document.getElementById("capture-results").addEventListener("click", function() 
 document.getElementById("formulario").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const funcionStr = document.getElementById("funcion").value;
+  let funcionStr = document.getElementById("funcion").value;
   const metodo = document.getElementById("metodo").value;
   const x0 = parseFloat(document.getElementById("x0").value);
   const x1 = parseFloat(document.getElementById("x1").value);
   const tolerancia = parseFloat(document.getElementById("tolerancia").value);
   const iterMax = parseInt(document.getElementById("iteraciones").value);
   const salida = document.getElementById("salida");
+
+  // Normalizar la función para math.js
+  funcionStr = normalizarFuncion(funcionStr);
 
   const parser = math.parser();
   let f, df;
@@ -135,7 +139,8 @@ document.getElementById("formulario").addEventListener("submit", function (e) {
       df = math.compile(derivadaStr);
     }
      } catch (error) {
-     salida.textContent = "Error en la función ingresada.";
+     salida.textContent = "Error en la función ingresada: " + error.message;
+     console.error("Error al compilar función:", error);
      return;
    }
 
@@ -256,6 +261,37 @@ function convertirFuncionAGeoGebra(funcionJS) {
 }
 
 
+function normalizarFuncion(funcionStr) {
+  // Limpiar espacios extra
+  let funcion = funcionStr.trim();
+  
+  // Reemplazar comas por puntos para decimales
+  funcion = funcion.replace(/,/g, '.');
+  
+  // Manejar casos específicos como "x^5+0,25x^2-1"
+  // Asegurar que los términos que empiezan con x tengan coeficiente 1 implícito
+  funcion = funcion.replace(/([+\-])x/g, '$11*x');
+  
+  // Si la función empieza con x, agregar coeficiente 1
+  if (funcion.startsWith('x')) {
+    funcion = '1*' + funcion;
+  }
+  
+  // Manejar casos donde hay espacios entre coeficientes y variables
+  funcion = funcion.replace(/(\d+)\s*x/g, '$1*x');
+  
+  // Asegurar que las potencias estén correctamente formateadas
+  funcion = funcion.replace(/\^/g, '^');
+  
+  // Manejar casos donde los coeficientes decimales están mal formateados
+  // Buscar patrones como "0,25" y convertirlos a "0.25"
+  funcion = funcion.replace(/(\d+),(\d+)/g, '$1.$2');
+  
+  console.log('Función original:', funcionStr);
+  console.log('Función normalizada:', funcion);
+  return funcion;
+}
+
 function actualizarGeoGebra(funcionStr) {
   if (!ggbApp) {
     console.log("GeoGebra aún no está listo, reintentando...");
@@ -263,7 +299,8 @@ function actualizarGeoGebra(funcionStr) {
     return;
   }
   
-  const funcionGG = convertirFuncionAGeoGebra(funcionStr);
+  const funcionNormalizada = normalizarFuncion(funcionStr);
+  const funcionGG = convertirFuncionAGeoGebra(funcionNormalizada);
   
   try {
     ggbApp.evalCommand(`f(x) = ${funcionGG}`);
