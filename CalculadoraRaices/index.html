@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora Numérica</title>
+  <title>Análisis Numérico Pro</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -26,9 +26,9 @@
               <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
               <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
             </svg>
-            Calculadora Numérica
+            Análisis Numérico Pro
           </h1>
-          <p class="text-blue-100 text-sm">Métodos de Análisis Numérico - TP1</p>
+          <p class="text-blue-100 text-sm">Herramientas Avanzadas de Métodos Numéricos</p>
         </div>
         <div class="flex items-center space-x-4">
           <button onclick="toggleModoOscuro()" 
@@ -43,108 +43,335 @@
     </div>
   </header>
 
-  <main class="flex flex-col items-center justify-center px-4 py-12">
-    <h1 class="text-2xl font-semibold">Seleccioná un tipo de método</h1>
-
-    <!-- Unidad 1 -->
-    <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">
-      <h2 class="text-2xl font-semibold text-red-500">Unidad 1</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 w-full max-w-4xl">
-        <a href="metodosCerrados/indexC.html"
-          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
-          <div class="absolute top-0 right-0 w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
-          <div class="relative z-10">
-            <div class="flex items-center mb-4">
-                          <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
-              <svg class="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Métodos Cerrados</h2>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">Bisección y Regla Falsa. Requieren intervalo [xi, xd] donde la función cambie de signo.</p>
-            <div class="flex items-center text-blue-500 dark:text-blue-400 font-medium">
-              <span>Explorar métodos</span>
-              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </div>
+  <main class="px-4 py-8">
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto mb-16">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          Herramientas de <span class="text-blue-600 dark:text-blue-400">Análisis Numérico</span>
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+          Plataforma educativa completa con métodos numéricos avanzados para resolver ecuaciones, 
+          sistemas lineales y problemas de optimización con precisión y visualización detallada.
+        </p>
+        
+        <!-- Estadísticas -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">6</div>
+            <div class="text-sm text-gray-600 dark:text-gray-300">Métodos Implementados</div>
           </div>
-        </a>
-
-        <a href="metodosAbiertos/indexA.html"
-          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
-          <div class="absolute top-0 right-0 w-20 h-20 bg-green-100 dark:bg-green-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
-          <div class="relative z-10">
-            <div class="flex items-center mb-4">
-                          <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-900 rounded-lg flex items-center justify-center mr-4">
-              <svg class="w-6 h-6 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">Métodos Abiertos</h2>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">Newton-Raphson y Secante. Requieren una o dos aproximaciones iniciales (x₀, x₁).</p>
-            <div class="flex items-center text-emerald-500 dark:text-emerald-400 font-medium">
-              <span>Explorar métodos</span>
-              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">10×10</div>
+            <div class="text-sm text-gray-600 dark:text-gray-300">Sistemas Máximos</div>
           </div>
-        </a>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <div class="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">∞</div>
+            <div class="text-sm text-gray-600 dark:text-gray-300">Precisión Decimal</div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <div class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">100%</div>
+            <div class="text-sm text-gray-600 dark:text-gray-300">Gratuito</div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Unidad 2 -->
-    <div class="sm:grid-cols-2 gap-6 mt-12 w-full max-w-3xl text-center">
-      <h2 class="text-2xl font-semibold text-orange-500">Unidad 2</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 w-full max-w-4xl">
-        <a href="SistemasEcuaciones/GaussJordan/indexGJ.html"
-          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
-          <div class="absolute top-0 right-0 w-20 h-20 bg-purple-100 dark:bg-purple-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
-          <div class="relative z-10">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-purple-50 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-4">
-                <svg class="w-6 h-6 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold text-purple-600 dark:text-purple-400">Gauss-Jordan</h2>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">Método directo que transforma la matriz en identidad. Solución exacta en pasos finitos.</p>
-            <div class="flex items-center text-purple-500 dark:text-purple-400 font-medium">
-              <span>Explorar método</span>
-              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </div>
+    <!-- Búsqueda y Filtros -->
+    <section class="max-w-7xl mx-auto mb-12">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex flex-col md:flex-row gap-4 items-center">
+          <div class="flex-1 relative">
+            <input type="text" id="search-methods" placeholder="Buscar métodos..." 
+              class="w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <svg class="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+            </svg>
           </div>
-        </a>
-
-        <a href="SistemasEcuaciones/GaussSeidel/indexGS.html"
-          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
-          <div class="absolute top-0 right-0 w-20 h-20 bg-orange-100 dark:bg-orange-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
-          <div class="relative z-10">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-orange-50 dark:bg-orange-900 rounded-lg flex items-center justify-center mr-4">
-                <svg class="w-6 h-6 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold text-orange-600 dark:text-orange-400">Gauss-Seidel</h2>
-            </div>
-            <p class="text-gray-600 dark:text-gray-300 mb-4">Método iterativo con control de error. Ideal para sistemas grandes con convergencia garantizada.</p>
-            <div class="flex items-center text-orange-500 dark:text-orange-400 font-medium">
-              <span>Explorar método</span>
-              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </div>
+          <div class="flex gap-2">
+            <button onclick="filterMethods('all')" class="filter-btn active px-4 py-2 rounded-lg bg-blue-500 text-white">
+              Todos
+            </button>
+            <button onclick="filterMethods('directo')" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+              Directos
+            </button>
+            <button onclick="filterMethods('iterativo')" class="filter-btn px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+              Iterativos
+            </button>
           </div>
-        </a>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Métodos -->
+    <section class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Métodos Disponibles</h2>
+
+      <!-- Grid de Métodos -->
+      <div id="methods-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Métodos Cerrados -->
+        <div class="method-card" data-type="directo" data-unidad="1">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold">Métodos Cerrados</h3>
+                    <p class="text-blue-100 text-sm">Bisección • Regla Falsa</p>
+                  </div>
+                </div>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">Unidad 1</span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                Requieren intervalo [xi, xd] donde la función cambie de signo. Garantizan convergencia.
+              </p>
+              
+              <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Complejidad:</span>
+                  <span class="font-semibold">O(log n)</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Tipo:</span>
+                  <span class="font-semibold text-blue-600">Directo</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Convergencia:</span>
+                  <span class="font-semibold text-green-600">Garantizada</span>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 text-sm">Cuándo usar:</h4>
+                <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                  <li>• Función continua en [a,b]</li>
+                  <li>• f(a) × f(b) < 0</li>
+                  <li>• Se conoce el intervalo</li>
+                </ul>
+              </div>
+              
+              <a href="metodosCerrados/indexC.html" 
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                <span>Usar Métodos</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Métodos Abiertos -->
+        <div class="method-card" data-type="iterativo" data-unidad="1">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 p-6 text-white">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold">Métodos Abiertos</h3>
+                    <p class="text-emerald-100 text-sm">Newton-Raphson • Secante</p>
+                  </div>
+                </div>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">Unidad 1</span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                Requieren aproximaciones iniciales. Convergencia rápida pero no garantizada.
+              </p>
+              
+              <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Complejidad:</span>
+                  <span class="font-semibold">O(n)</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Tipo:</span>
+                  <span class="font-semibold text-emerald-600">Iterativo</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Convergencia:</span>
+                  <span class="font-semibold text-yellow-600">Condicional</span>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 text-sm">Cuándo usar:</h4>
+                <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                  <li>• Función derivable</li>
+                  <li>• Buena aproximación inicial</li>
+                  <li>• Convergencia rápida deseada</li>
+                </ul>
+              </div>
+              
+              <a href="metodosAbiertos/indexA.html" 
+                class="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                <span>Usar Métodos</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gauss-Jordan -->
+        <div class="method-card" data-type="directo" data-unidad="2">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold">Gauss-Jordan</h3>
+                    <p class="text-purple-100 text-sm">Eliminación Directa</p>
+                  </div>
+                </div>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">Unidad 2</span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                Transforma la matriz en identidad. Solución exacta en pasos finitos.
+              </p>
+              
+              <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Complejidad:</span>
+                  <span class="font-semibold">O(n³)</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Tipo:</span>
+                  <span class="font-semibold text-purple-600">Directo</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Precisión:</span>
+                  <span class="font-semibold text-green-600">Exacta</span>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 text-sm">Cuándo usar:</h4>
+                <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                  <li>• Sistemas pequeños (n ≤ 10)</li>
+                  <li>• Matriz no singular</li>
+                  <li>• Solución exacta requerida</li>
+                </ul>
+              </div>
+              
+              <a href="SistemasEcuaciones/GaussJordan/indexGJ.html" 
+                class="w-full bg-purple-500 hover:bg-purple-600 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                <span>Usar Método</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gauss-Seidel -->
+        <div class="method-card" data-type="iterativo" data-unidad="2">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-white">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold">Gauss-Seidel</h3>
+                    <p class="text-orange-100 text-sm">Método Iterativo</p>
+                  </div>
+                </div>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">Unidad 2</span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                Método iterativo con control de error. Ideal para sistemas grandes.
+              </p>
+              
+              <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Complejidad:</span>
+                  <span class="font-semibold">O(n²)</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Tipo:</span>
+                  <span class="font-semibold text-orange-600">Iterativo</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Convergencia:</span>
+                  <span class="font-semibold text-green-600">Si dominante</span>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 text-sm">Cuándo usar:</h4>
+                <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                  <li>• Sistemas grandes (n > 10)</li>
+                  <li>• Matriz diagonalmente dominante</li>
+                  <li>• Control de precisión deseado</li>
+                </ul>
+              </div>
+              
+              <a href="SistemasEcuaciones/GaussSeidel/indexGS.html" 
+                class="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                <span>Usar Método</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historial de Cálculos -->
+    <section class="max-w-7xl mx-auto mt-16">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200 flex items-center gap-3">
+          <svg class="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zM8 6a2 2 0 114 0v1H8V6zm8 10H4v-8h12v8z" clip-rule="evenodd"/>
+          </svg>
+          Historial de Cálculos Recientes
+        </h2>
+        <div id="calculations-history" class="space-y-3">
+          <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+            <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zM8 6a2 2 0 114 0v1H8V6zm8 10H4v-8h12v8z" clip-rule="evenodd"/>
+            </svg>
+            <p>No hay cálculos recientes</p>
+            <p class="text-sm">Los cálculos realizados aparecerán aquí</p>
+          </div>
+        </div>
+      </div>
+    </section>
     
     <!-- Sección de información adicional -->
     <div class="mt-16 max-w-4xl mx-auto">
@@ -199,10 +426,10 @@
               <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
               <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
             </svg>
-            Calculadora Numérica
+            Análisis Numérico Pro
           </h3>
           <p class="text-gray-300 text-sm">
-            Herramienta educativa para el análisis numérico. Implementa métodos cerrados y abiertos para encontrar raíces de ecuaciones.
+            Plataforma educativa completa con métodos numéricos avanzados para resolver ecuaciones, sistemas lineales y problemas de optimización.
           </p>
         </div>
         <div>
@@ -246,6 +473,87 @@
   </footer>
 
   <script>
+    // Funciones de búsqueda y filtros
+    function filterMethods(type) {
+      const cards = document.querySelectorAll('.method-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // Actualizar botones activos
+      buttons.forEach(btn => {
+        btn.classList.remove('active', 'bg-blue-500', 'text-white');
+        btn.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      });
+      
+      event.target.classList.add('active', 'bg-blue-500', 'text-white');
+      event.target.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      
+      // Filtrar cards
+      cards.forEach(card => {
+        if (type === 'all' || card.dataset.type === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function searchMethods() {
+      const searchTerm = document.getElementById('search-methods').value.toLowerCase();
+      const cards = document.querySelectorAll('.method-card');
+      
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Historial de cálculos
+    function loadCalculationHistory() {
+      const history = JSON.parse(localStorage.getItem('calculationHistory') || '[]');
+      const historyContainer = document.getElementById('calculations-history');
+      
+      if (history.length === 0) {
+        historyContainer.innerHTML = `
+          <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+            <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zM8 6a2 2 0 114 0v1H8V6zm8 10H4v-8h12v8z" clip-rule="evenodd"/>
+            </svg>
+            <p>No hay cálculos recientes</p>
+            <p class="text-sm">Los cálculos realizados aparecerán aquí</p>
+          </div>
+        `;
+        return;
+      }
+      
+      historyContainer.innerHTML = history.slice(0, 5).map(calc => `
+        <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-${calc.color}-100 dark:bg-${calc.color}-900 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-${calc.color}-600 dark:text-${calc.color}-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-800 dark:text-gray-200">${calc.method}</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-300">${calc.description}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-sm text-gray-500 dark:text-gray-400">${calc.timestamp}</p>
+            <a href="${calc.url}" class="text-${calc.color}-600 dark:text-${calc.color}-400 hover:text-${calc.color}-800 dark:hover:text-${calc.color}-200 text-sm font-medium">
+              Ver resultado →
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function toggleModoOscuro() {
       const html = document.documentElement;
       const modoIcon = document.getElementById('modo-icon');
@@ -260,13 +568,25 @@
       }
     }
 
-    // Inicializar icono al cargar
+    // Inicializar al cargar
     window.addEventListener('load', function() {
       const modoIcon = document.getElementById('modo-icon');
       if (localStorage.getItem('modoOscuro') === 'true') {
         modoIcon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>';
       } else {
         modoIcon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
+      }
+      
+      // Cargar historial
+      loadCalculationHistory();
+    });
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Búsqueda
+      const searchInput = document.getElementById('search-methods');
+      if (searchInput) {
+        searchInput.addEventListener('input', searchMethods);
       }
     });
 
