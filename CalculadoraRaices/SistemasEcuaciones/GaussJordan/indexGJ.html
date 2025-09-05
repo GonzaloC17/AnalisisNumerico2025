@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Método de Gauss-Jordan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="scriptGJ.js"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+        if (localStorage.getItem('modoOscuro') === 'true') {
+          document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition duration-300">
+
+<header class="bg-gradient-to-r from-blue-700 to-blue-500 dark:from-blue-800 dark:to-blue-700 text-white py-6 shadow-lg relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="text-center md:text-left mb-4 md:mb-0">
+          <h1 class="text-3xl font-bold mb-2 flex items-center gap-3">
+            <svg class="w-8 h-8 text-blue-300" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+            </svg>
+            Método de Gauss-Jordan
+          </h1>
+          <p class="text-blue-100 text-sm">Eliminación Gaussiana con Normalización</p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2">
+            <span>←</span>
+            <span class="hidden sm:inline">Volver</span>
+          </a>
+          <button onclick="toggleModoOscuro()" 
+            class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2">
+            <svg id="modo-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+            </svg>
+            <span class="hidden sm:inline">Modo</span>
+          </button>
+        </div>
+      </div>
+    </div>
+</header>
+
+<main class="flex flex-col xl:flex-row items-start justify-between max-w-7xl mx-auto px-6 py-10 gap-8">
+    
+    <!-- Formulario -->
+    <section class="w-full xl:w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+      <h1 class="text-2xl font-semibold mb-6">Calculadora Gauss-Jordan</h1>
+
+      <form id="formulario" class="space-y-4">
+        <div>
+          <label class="block font-semibold">Dimensión del Sistema</label>
+          <input type="number" id="dimension" min="2" max="10" required
+            class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700"
+            placeholder="Ingrese la dimensión (2-10)">
+        </div>
+        
+        <div class="flex gap-4">
+          <button type="button" onclick="generarMatriz()" 
+            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow transition-colors">
+            Generar Matriz
+          </button>
+          <button type="button" onclick="resolverSistema()" 
+            class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded shadow transition-colors">
+            Resolver Sistema
+          </button>
+        </div>
+      </form>
+
+      <div class="flex justify-between items-center mt-8">
+        <h2 class="text-xl font-bold flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+          </svg>
+          Matriz del Sistema
+        </h2>
+        <button type="button" id="capture-results" 
+          class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+          </svg>
+          <span>Capturar</span>
+        </button>
+      </div>
+      
+      <div id="matriz-container" class="bg-gray-100 dark:bg-gray-700 p-4 mt-2 rounded shadow-inner text-sm overflow-auto font-mono mb-6"></div>
+
+      <div class="flex justify-between items-center">
+        <h2 class="text-xl font-bold flex items-center gap-2">
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          Resultado
+        </h2>
+      </div>
+      <div id="resultado" class="bg-gray-100 dark:bg-gray-700 p-4 mt-2 rounded shadow-inner text-sm overflow-auto font-mono"></div>
+    </section>
+
+    <!-- Información del Método -->
+    <section class="w-full xl:w-1/2">
+      <h2 class="text-xl font-bold mb-2 flex items-center gap-2">
+        <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        Información del Método
+      </h2>
+      <div class="bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 shadow-lg p-6">
+        <h3 class="text-lg font-semibold mb-4 text-blue-600 dark:text-blue-400">Método de Gauss-Jordan</h3>
+        <div class="space-y-4 text-sm text-gray-600 dark:text-gray-300">
+          <div>
+            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">¿Qué hace este método?</h4>
+            <p>Transforma la matriz aumentada [A|b] en una matriz identidad [I|x], donde x es la solución del sistema Ax = b.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Pasos del algoritmo:</h4>
+            <ol class="list-decimal list-inside space-y-1 ml-2">
+              <li>Para cada fila i, obtener el coeficiente diagonal principal</li>
+              <li>Dividir toda la fila por ese coeficiente</li>
+              <li>Hacer ceros los demás elementos de la columna</li>
+              <li>Repetir hasta obtener matriz identidad</li>
+            </ol>
+          </div>
+          <div>
+            <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">Ventajas:</h4>
+            <ul class="list-disc list-inside space-y-1 ml-2">
+              <li>Solución directa sin sustitución hacia atrás</li>
+              <li>Muestra claramente los pasos intermedios</li>
+              <li>Fácil de implementar y entender</li>
+            </ul>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900 p-3 rounded border-l-4 border-blue-500">
+            <p class="text-blue-800 dark:text-blue-200"><strong>Nota:</strong> El sistema debe ser cuadrado (n×n) y no singular para tener solución única.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleModoOscuro() {
+      const html = document.documentElement;
+      const modoIcon = document.getElementById('modo-icon');
+      html.classList.toggle('dark');
+      localStorage.setItem('modoOscuro', html.classList.contains('dark'));
+      
+      // Cambiar icono
+      if (html.classList.contains('dark')) {
+        modoIcon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>';
+      } else {
+        modoIcon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
+      }
+    }
+
+    // Inicializar icono al cargar
+    window.addEventListener('load', function() {
+      const modoIcon = document.getElementById('modo-icon');
+      if (localStorage.getItem('modoOscuro') === 'true') {
+        modoIcon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>';
+      } else {
+        modoIcon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
+      }
+    });
+
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+        if (localStorage.getItem('modoOscuro') === 'true') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

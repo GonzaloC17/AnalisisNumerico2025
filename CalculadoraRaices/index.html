@@ -46,6 +46,7 @@
   <main class="flex flex-col items-center justify-center px-4 py-12">
     <h1 class="text-2xl font-semibold">Seleccioná un tipo de método</h1>
 
+    <!-- Unidad 1 -->
     <div class="sm:grid-cols-2 gap-6 mt-6 w-full max-w-3xl text-center">
       <h2 class="text-2xl font-semibold text-red-500">Unidad 1</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 w-full max-w-4xl">
@@ -86,6 +87,56 @@
             <p class="text-gray-600 dark:text-gray-300 mb-4">Newton-Raphson y Secante. Requieren una o dos aproximaciones iniciales (x₀, x₁).</p>
             <div class="flex items-center text-emerald-500 dark:text-emerald-400 font-medium">
               <span>Explorar métodos</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Unidad 2 -->
+    <div class="sm:grid-cols-2 gap-6 mt-12 w-full max-w-3xl text-center">
+      <h2 class="text-2xl font-semibold text-orange-500">Unidad 2</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 w-full max-w-4xl">
+        <a href="SistemasEcuaciones/GaussJordan/indexGJ.html"
+          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-purple-100 dark:bg-purple-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-purple-50 dark:bg-purple-900 rounded-lg flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-purple-600 dark:text-purple-400">Gauss-Jordan</h2>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">Método directo que transforma la matriz en identidad. Solución exacta en pasos finitos.</p>
+            <div class="flex items-center text-purple-500 dark:text-purple-400 font-medium">
+              <span>Explorar método</span>
+              <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <a href="SistemasEcuaciones/GaussSeidel/indexGS.html"
+          class="group bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700 overflow-hidden relative">
+          <div class="absolute top-0 right-0 w-20 h-20 bg-orange-100 dark:bg-orange-900 rounded-bl-full transform translate-x-8 -translate-y-8 transition-transform group-hover:scale-110"></div>
+          <div class="relative z-10">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-orange-50 dark:bg-orange-900 rounded-lg flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-orange-600 dark:text-orange-400">Gauss-Seidel</h2>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">Método iterativo con control de error. Ideal para sistemas grandes con convergencia garantizada.</p>
+            <div class="flex items-center text-orange-500 dark:text-orange-400 font-medium">
+              <span>Explorar método</span>
               <svg class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
               </svg>
@@ -166,6 +217,8 @@
             <li>• Método de Regla Falsa</li>
             <li>• Método de Newton-Raphson</li>
             <li>• Método de Secante</li>
+            <li>• Método de Gauss-Jordan</li>
+            <li>• Método de Gauss-Seidel</li>
           </ul>
         </div>
         <div>
