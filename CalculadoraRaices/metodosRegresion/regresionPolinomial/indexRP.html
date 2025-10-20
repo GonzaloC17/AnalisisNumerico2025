@@ -151,6 +151,46 @@
         </button>
       </div>
       <div id="salida" class="bg-gray-100 dark:bg-gray-700 p-4 mt-2 rounded shadow-inner text-sm overflow-auto font-mono max-h-96"></div>
+
+      <!-- Modificación de recta -->
+      <div class="mt-8">
+        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+          </svg>
+          Modificación de Recta
+        </h2>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block font-semibold mb-2">Función Modificada</label>
+            <div class="flex gap-2">
+              <input type="text" id="funcion-modificada" placeholder="y = 2x - 3" 
+                class="flex-1 px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700">
+              <button type="button" id="calcular-modificada" 
+                class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                Calcular
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Formato: y = ax + b (ejemplo: y = 2.5x - 1.3)
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block font-semibold mb-2">Efectividad %</label>
+              <input type="text" id="efectividad-modificada" readonly
+                class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 bg-gray-50 dark:bg-gray-600">
+            </div>
+            <div>
+              <label class="block font-semibold mb-2">Efectividad del Ajuste</label>
+              <input type="text" id="ajuste-modificada" readonly
+                class="w-full px-4 py-2 rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-700 bg-gray-50 dark:bg-gray-600">
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Gráfico -->

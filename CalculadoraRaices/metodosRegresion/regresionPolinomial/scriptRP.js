@@ -28,26 +28,37 @@ class RegresionPolinomial {
     document.getElementById('capture-results').addEventListener('click', () => {
       this.capturarResultados();
     });
+
+    // Botón de calcular función modificada
+    document.getElementById('calcular-modificada').addEventListener('click', () => {
+      this.calcularFuncionModificada();
+    });
   }
 
   initializeGeoGebra() {
-    const parameters = {
-      "id": "geogebra-container",
-      "width": 800,
-      "height": 600,
-      "showToolBar": false,
-      "showAlgebraInput": false,
-      "showMenuBar": false,
-      "showToolBarHelp": false,
-      "showResetIcon": false,
-      "enableLabelDrags": false,
-      "enableShiftDragZoom": true,
-      "enableRightClick": false,
-      "showZoomButtons": false
-    };
-
-    this.geogebraApp = new GGBApplet(parameters, true);
-    this.geogebraApp.inject('geogebra-container');
+    const self = this;
+    window.addEventListener('load', function() {
+      const ggbApplet = new GGBApplet({
+        "appName": "graphing",
+        "width": 800,
+        "height": 600,
+        "showToolBar": false,
+        "showAlgebraInput": false,
+        "showMenuBar": false,
+        "showToolBarHelp": false,
+        "showResetIcon": false,
+        "enableLabelDrags": false,
+        "enableShiftDragZoom": true,
+        "enableRightClick": false,
+        "showZoomButtons": false,
+        "appletOnLoad": function(api) {
+          self.geogebraApp = api;
+          console.log('GeoGebra API cargada exitosamente para Regresión Polinomial');
+        }
+      }, true);
+      
+      ggbApplet.inject('geogebra-container');
+    });
   }
 
   parsearDatos(valor) {
@@ -153,6 +164,7 @@ class RegresionPolinomial {
 
     // Generar matriz polinomial según el pseudocódigo de la imagen
     const puntosCargados = x.map((xi, i) => [xi, y[i]]);
+    this.puntos = puntosCargados; // Guardar puntos para función modificada
     const matrizPolinomial = this.generarMatrizPolinomial(grado, puntosCargados, precision, mostrarPasos, salida);
 
     // Resolver sistema usando Gauss-Jordan
@@ -434,15 +446,19 @@ class RegresionPolinomial {
 
 
   mostrarResultados(resultado) {
-    document.getElementById('salida').textContent = resultado.salida;
+    document.getElementById('salida').innerHTML = resultado.salida.replace(/\n/g, '<br>');
   }
 
   mostrarError(mensaje) {
-    document.getElementById('salida').textContent = `Error: ${mensaje}`;
+    document.getElementById('salida').innerHTML = `<span style="color: red;">Error: ${mensaje}</span>`;
   }
 
   graficarDatos(x, y, resultado) {
-    if (!this.geogebraApp) return;
+    if (!this.geogebraApp) {
+      console.log("GeoGebra aún no está listo, reintentando...");
+      setTimeout(() => this.graficarDatos(x, y, resultado), 500);
+      return;
+    }
 
     try {
       // Limpiar gráfico anterior
@@ -523,10 +539,140 @@ class RegresionPolinomial {
       alert('Error al capturar los resultados');
     });
   }
+
+  // Método para obtener coeficientes de la función modificada
+  obtenerCoeficientesFuncion(funcion) {
+    if (!funcion || funcion.trim() === '') {
+      throw new Error('La función no puede estar vacía.');
+    }
+
+    // Regex para parsear y = ax + b
+    const regex = /y\s*=\s*([+-]?\d+(?:[.,]\d+)?)x\s*([+-]\s*\d+(?:[.,]\d+)?)/;
+    const match = funcion.match(regex);
+
+    if (!match) {
+      throw new Error('Formato inválido. Ejemplo esperado: y = 2.5x - 1.3');
+    }
+
+    // Extraer coeficientes
+    let a1Str = match[1].replace(',', '.');
+    let a0Str = match[2].replace(',', '.').replace(/\s+/g, '');
+
+    const a1 = parseFloat(a1Str);
+    const a0 = parseFloat(a0Str);
+
+    if (isNaN(a1) || isNaN(a0)) {
+      throw new Error('Los coeficientes deben ser números válidos.');
+    }
+
+    return { a1, a0 };
+  }
+
+  // Método para calcular la efectividad de la función modificada
+  calcularFuncionModificada() {
+    try {
+      const funcionModificada = document.getElementById('funcion-modificada').value.trim();
+      
+      if (!funcionModificada) {
+        alert('Por favor, ingresa una función modificada.');
+        return;
+      }
+
+      // Verificar que hay puntos cargados
+      if (!this.puntos || this.puntos.length === 0) {
+        alert('Primero debes calcular una regresión con puntos de datos.');
+        return;
+      }
+
+      // Obtener coeficientes de la función modificada
+      const { a1, a0 } = this.obtenerCoeficientesFuncion(funcionModificada);
+
+      // Calcular sumatoria de Y
+      let sumY = 0;
+      for (const punto of this.puntos) {
+        sumY += punto[1];
+      }
+
+      const cantidadPuntos = this.puntos.length;
+      const promedioY = sumY / cantidadPuntos;
+
+      // Calcular ST y SR
+      let st = 0;
+      let sr = 0;
+
+      for (const punto of this.puntos) {
+        const x = punto[0];
+        const y = punto[1];
+        
+        // ST: suma de cuadrados total
+        st += Math.pow(promedioY - y, 2);
+        
+        // SR: suma de cuadrados residual
+        const yCalculado = a1 * x + a0;
+        sr += Math.pow(yCalculado - y, 2);
+      }
+
+      // Calcular coeficiente de correlación
+      let r = 0;
+      if (st > 0) {
+        r = Math.sqrt((st - sr) / st) * 100;
+      }
+
+      // Determinar efectividad del ajuste
+      let efectividadAjuste = 'Malo';
+      if (r >= 90) {
+        efectividadAjuste = 'Excelente';
+      } else if (r >= 80) {
+        efectividadAjuste = 'Bueno';
+      } else if (r >= 70) {
+        efectividadAjuste = 'Aceptable';
+      } else if (r >= 60) {
+        efectividadAjuste = 'Regular';
+      }
+
+      // Mostrar resultados
+      document.getElementById('efectividad-modificada').value = r.toFixed(8);
+      document.getElementById('ajuste-modificada').value = efectividadAjuste;
+
+      // Actualizar gráfica con la función modificada
+      this.actualizarGraficaModificada(a1, a0);
+
+    } catch (error) {
+      alert('Error: ' + error.message);
+      console.error('Error al calcular función modificada:', error);
+    }
+  }
+
+  // Método para actualizar la gráfica con la función modificada
+  actualizarGraficaModificada(a1, a0) {
+    if (!this.geogebraApp) return;
+
+    try {
+      // Crear función modificada en GeoGebra
+      const funcionGeoGebra = `${a1}*x + ${a0}`;
+      this.geogebraApp.evalCommand(`f_modificada(x) = ${funcionGeoGebra}`);
+      
+      // Configurar estilo de la función modificada
+      this.geogebraApp.evalCommand('SetColor(f_modificada, 255, 0, 0)'); // Rojo
+      this.geogebraApp.evalCommand('SetLineThickness(f_modificada, 3)');
+      this.geogebraApp.evalCommand('SetLineStyle(f_modificada, 2)'); // Línea punteada
+
+      // Agregar etiqueta
+      this.geogebraApp.evalCommand(`texto_modificada = "Función modificada: y = ${a1}x + ${a0}"`);
+
+    } catch (error) {
+      console.error('Error al actualizar gráfica modificada:', error);
+    }
+  }
 }
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    new RegresionPolinomial();
+  });
+} else {
+  // El DOM ya está listo, inicializar inmediatamente
   new RegresionPolinomial();
-});
+}
 

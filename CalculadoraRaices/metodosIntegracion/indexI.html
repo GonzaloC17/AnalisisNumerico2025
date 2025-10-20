@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es" class="transition duration-300">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integración Numérica - Análisis Numérico Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+        if (localStorage.getItem('modoOscuro') === 'true') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <link rel="stylesheet" href="../estilos/estilos.css">
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <script src="../config.js"></script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition duration-300">
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-cyan-700 to-cyan-500 dark:from-cyan-800 dark:to-cyan-700 text-white py-6 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <h1 class="text-3xl font-bold mb-2 flex items-center gap-3">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+                        </svg>
+                        Unidad 4: Integración Numérica
+                    </h1>
+                    <p class="text-cyan-100 text-sm">Métodos para calcular integrales definidas</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="hidden sm:inline">Volver</span>
+                    </a>
+                    <button onclick="toggleModoOscuro()" 
+                        class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2">
+                        <svg id="modo-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                        <span class="hidden sm:inline">Modo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="px-4 py-8">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Información del método -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 flex items-center gap-3">
+                    <svg class="w-6 h-6 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Integración Numérica
+                </h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Los métodos de integración numérica permiten calcular el valor aproximado de integrales definidas 
+                    cuando no es posible obtener la solución analítica exacta.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-cyan-50 dark:bg-cyan-900/20 p-3 rounded-lg">
+                        <h4 class="font-semibold text-cyan-800 dark:text-cyan-200 mb-1">Trapecios</h4>
+                        <p class="text-cyan-600 dark:text-cyan-300">Aproximación lineal por trapecios</p>
+                    </div>
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-1">Simpson 1/3</h4>
+                        <p class="text-blue-600 dark:text-blue-300">Aproximación parabólica</p>
+                    </div>
+                    <div class="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
+                        <h4 class="font-semibold text-purple-800 dark:text-purple-200 mb-1">Simpson 3/8</h4>
+                        <p class="text-purple-600 dark:text-purple-300">Aproximación cúbica</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario principal -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Datos de entrada -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        Datos de Entrada
+                    </h3>
+                    
+                    <form id="integration-form" class="space-y-4">
+                        <!-- Función -->
+                        <div>
+                            <label for="funcion" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                F(x):
+                            </label>
+                            <input type="text" id="funcion" name="funcion" 
+                                placeholder="Ej: x^2 + 2*x + 1" 
+                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                required>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                Usa 'x' como variable. Ejemplos: x^2, sin(x), exp(x), log(x)
+                            </p>
+                        </div>
+
+                        <!-- Intervalos -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="xi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Xi (extremo izquierdo):
+                                </label>
+                                <input type="number" id="xi" name="xi" step="any" 
+                                    placeholder="0" 
+                                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="xd" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Xd (extremo derecho):
+                                </label>
+                                <input type="number" id="xd" name="xd" step="any" 
+                                    placeholder="1" 
+                                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Cantidad de subintervalos -->
+                        <div>
+                            <label for="subintervalos" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Cantidad de subintervalos (n):
+                            </label>
+                            <input type="number" id="subintervalos" name="subintervalos" min="1" 
+                                placeholder="4" 
+                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                required>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                Para Simpson 1/3 múltiple, n debe ser par. Para Simpson 3/8, n debe ser múltiplo de 3.
+                            </p>
+                        </div>
+
+                        <!-- Método -->
+                        <div>
+                            <label for="metodo" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Método a utilizar:
+                            </label>
+                            <select id="metodo" name="metodo" 
+                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                                required>
+                                <option value="">Selecciona un método</option>
+                                <option value="trapecios-simple">Trapecios Simple</option>
+                                <option value="trapecios-multiple">Trapecios Múltiple</option>
+                                <option value="simpson-13-simple">Simpson 1/3 Simple</option>
+                                <option value="simpson-13-multiple">Simpson 1/3 Múltiple</option>
+                                <option value="simpson-38">Simpson 3/8</option>
+                                <option value="simpson-combinado">Simpson Combinado (1/3 + 3/8)</option>
+                            </select>
+                        </div>
+
+                        <!-- Botón calcular -->
+                        <button type="submit" 
+                            class="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2 font-medium">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>Calcular</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Resultado -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Resultado
+                    </h3>
+                    
+                    <div id="resultado-container" class="space-y-4">
+                        <div class="text-center text-gray-500 dark:text-gray-400 py-8">
+                            <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <p>Ingresa los datos y presiona "Calcular"</p>
+                            <p class="text-sm">El resultado aparecerá aquí</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualización gráfica -->
+            <div class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+                        <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+                    </svg>
+                    Visualización Gráfica
+                </h3>
+                <div id="geogebra-container" class="w-full h-96 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                    <p class="text-gray-500 dark:text-gray-400">La gráfica aparecerá después del cálculo</p>
+                </div>
+            </div>
+
+            <!-- Información adicional -->
+            <div class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">Información de los Métodos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-cyan-50 dark:bg-cyan-900/20 p-4 rounded-lg">
+                        <h4 class="font-semibold text-cyan-800 dark:text-cyan-200 mb-2">Trapecios</h4>
+                        <p class="text-sm text-cyan-600 dark:text-cyan-300 mb-2">
+                            Aproxima la función con líneas rectas entre puntos consecutivos.
+                        </p>
+                        <p class="text-xs text-cyan-500 dark:text-cyan-400">
+                            Error: O(h²) donde h es el tamaño del subintervalo.
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Simpson 1/3</h4>
+                        <p class="text-sm text-blue-600 dark:text-blue-300 mb-2">
+                            Aproxima la función con parábolas entre tres puntos consecutivos.
+                        </p>
+                        <p class="text-xs text-blue-500 dark:text-blue-400">
+                            Error: O(h⁴) - Más preciso que trapecios.
+                        </p>
+                    </div>
+                    <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-800 dark:text-purple-200 mb-2">Simpson 3/8</h4>
+                        <p class="text-sm text-purple-600 dark:text-purple-300 mb-2">
+                            Aproxima la función con polinomios cúbicos entre cuatro puntos.
+                        </p>
+                        <p class="text-xs text-purple-500 dark:text-purple-400">
+                            Error: O(h⁴) - Requiere múltiplos de 3 subintervalos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="scriptI.js"></script>
+</body>
+</html>

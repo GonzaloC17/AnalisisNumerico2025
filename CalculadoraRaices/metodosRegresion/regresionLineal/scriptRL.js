@@ -31,23 +31,29 @@ class RegresionLineal {
   }
 
   initializeGeoGebra() {
-    const parameters = {
-      "id": "geogebra-container",
-      "width": 800,
-      "height": 600,
-      "showToolBar": false,
-      "showAlgebraInput": false,
-      "showMenuBar": false,
-      "showToolBarHelp": false,
-      "showResetIcon": false,
-      "enableLabelDrags": false,
-      "enableShiftDragZoom": true,
-      "enableRightClick": false,
-      "showZoomButtons": false
-    };
-
-    this.geogebraApp = new GGBApplet(parameters, true);
-    this.geogebraApp.inject('geogebra-container');
+    const self = this;
+    window.addEventListener('load', function() {
+      const ggbApplet = new GGBApplet({
+        "appName": "graphing",
+        "width": 800,
+        "height": 600,
+        "showToolBar": false,
+        "showAlgebraInput": false,
+        "showMenuBar": false,
+        "showToolBarHelp": false,
+        "showResetIcon": false,
+        "enableLabelDrags": false,
+        "enableShiftDragZoom": true,
+        "enableRightClick": false,
+        "showZoomButtons": false,
+        "appletOnLoad": function(api) {
+          self.geogebraApp = api;
+          console.log('GeoGebra API cargada exitosamente para Regresión Lineal');
+        }
+      }, true);
+      
+      ggbApplet.inject('geogebra-container');
+    });
   }
 
   parsearDatos(valor) {
@@ -217,15 +223,19 @@ class RegresionLineal {
   }
 
   mostrarResultados(resultado) {
-    document.getElementById('salida').textContent = resultado.salida;
+    document.getElementById('salida').innerHTML = resultado.salida.replace(/\n/g, '<br>');
   }
 
   mostrarError(mensaje) {
-    document.getElementById('salida').textContent = `Error: ${mensaje}`;
+    document.getElementById('salida').innerHTML = `<span style="color: red;">Error: ${mensaje}</span>`;
   }
 
   graficarDatos(x, y, resultado) {
-    if (!this.geogebraApp) return;
+    if (!this.geogebraApp) {
+      console.log("GeoGebra aún no está listo, reintentando...");
+      setTimeout(() => this.graficarDatos(x, y, resultado), 500);
+      return;
+    }
 
     try {
       // Limpiar gráfico anterior
@@ -291,7 +301,12 @@ class RegresionLineal {
 }
 
 // Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    new RegresionLineal();
+  });
+} else {
+  // El DOM ya está listo, inicializar inmediatamente
   new RegresionLineal();
-});
+}
 

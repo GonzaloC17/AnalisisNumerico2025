@@ -58,7 +58,7 @@
         <!-- Estadísticas -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
           <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-            <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">8</div>
+            <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">9</div>
             <div class="text-sm text-gray-600 dark:text-gray-300">Métodos Implementados</div>
           </div>
           <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
@@ -469,6 +469,66 @@
             </div>
           </div>
         </div>
+
+        <!-- Integración Numérica -->
+        <div class="method-card" data-type="directo" data-unidad="4">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div class="bg-gradient-to-r from-cyan-500 to-cyan-600 p-6 text-white">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold">Integración Numérica</h3>
+                    <p class="text-cyan-100 text-sm">Trapecios • Simpson 1/3 • Simpson 3/8</p>
+                  </div>
+                </div>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold">Unidad 4</span>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">
+                Calcula integrales definidas usando métodos numéricos de aproximación.
+              </p>
+              
+              <div class="space-y-3 mb-6">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Complejidad:</span>
+                  <span class="font-semibold">O(n)</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Tipo:</span>
+                  <span class="font-semibold text-cyan-600">Directo</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-500">Precisión:</span>
+                  <span class="font-semibold text-green-600">O(h⁴)</span>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-2 text-sm">Métodos incluidos:</h4>
+                <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                  <li>• Trapecios Simple y Múltiple</li>
+                  <li>• Simpson 1/3 Simple y Múltiple</li>
+                  <li>• Simpson 3/8 y Combinado</li>
+                </ul>
+              </div>
+              
+              <a href="metodosIntegracion/indexI.html" 
+                class="w-full bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-3 rounded-lg transition-colors flex items-center justify-center space-x-2">
+                <span>Usar Métodos</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -568,6 +628,7 @@
             <li>• Método de Gauss-Seidel</li>
             <li>• Regresión Lineal</li>
             <li>• Regresión Polinomial</li>
+            <li>• Integración Numérica</li>
           </ul>
         </div>
         <div>
