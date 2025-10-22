@@ -11,7 +11,19 @@ class CalculadoraIntegracion {
     initializeEventListeners() {
         const form = document.getElementById('integration-form');
         if (form) {
-            form.addEventListener('submit', (e) => this.handleSubmit(e));
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleSubmit(e);
+            });
+        }
+        
+        // También agregar listener al botón de calcular por si acaso
+        const calcularBtn = document.querySelector('button[type="submit"]');
+        if (calcularBtn) {
+            calcularBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleSubmit(e);
+            });
         }
 
         // Validación en tiempo real
@@ -76,15 +88,18 @@ class CalculadoraIntegracion {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
+        const funcion = document.getElementById('funcion').value.trim();
+        const xi = parseFloat(document.getElementById('xi').value);
+        const xd = parseFloat(document.getElementById('xd').value);
+        const subintervalos = parseInt(document.getElementById('subintervalos').value);
+        const metodo = document.getElementById('metodo').value;
         
-        const formData = new FormData(event.target);
         const data = {
-            funcion: formData.get('funcion'),
-            xi: parseFloat(formData.get('xi')),
-            xd: parseFloat(formData.get('xd')),
-            subintervalos: parseInt(formData.get('subintervalos')),
-            metodo: formData.get('metodo')
+            funcion: funcion,
+            xi: xi,
+            xd: xd,
+            subintervalos: subintervalos,
+            metodo: metodo
         };
 
         // Validaciones
@@ -302,8 +317,11 @@ class CalculadoraIntegracion {
 
     evaluarFuncion(funcion, x) {
         try {
+            // Convertir log() a Math.log() y ^ a ** para la evaluación
+            let funcionConvertida = funcion.replace(/log\(/g, 'Math.log(');
+            funcionConvertida = funcionConvertida.replace(/\^/g, '**');
             // Crear función segura
-            const func = new Function('x', `with (Math) { return ${funcion}; }`);
+            const func = new Function('x', `with (Math) { return ${funcionConvertida}; }`);
             const resultado = func(x);
             
             if (typeof resultado !== 'number' || !isFinite(resultado)) {
@@ -498,6 +516,7 @@ class CalculadoraIntegracion {
         }
     }
 }
+
 
 // Funciones de utilidad globales
 function toggleModoOscuro() {

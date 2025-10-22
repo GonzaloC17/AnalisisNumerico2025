@@ -56,7 +56,10 @@ const Utils = {
   // Validar función matemática
   validateFunction: (funcStr) => {
     try {
-      const testFn = new Function('x', `with (Math) { return ${funcStr}; }`);
+      // Convertir log() a Math.log() y ^ a ** para la validación
+      let funcionConvertida = funcStr.replace(/log\(/g, 'Math.log(');
+      funcionConvertida = funcionConvertida.replace(/\^/g, '**');
+      const testFn = new Function('x', `with (Math) { return ${funcionConvertida}; }`);
       const testValue = testFn(1);
       return typeof testValue === 'number' && isFinite(testValue);
     } catch {
